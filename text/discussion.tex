@@ -1,0 +1,22 @@
+\section{Discussion}
+While Petal demonstrates its effectiveness in accurately identifying unsafe access to message buffers, there are limitations to its analysis in two specific scenarios. 
+Firstly, it treats any access to a portion of an array as an access to the entire array. 
+This means that even if only the first 10 elements of a 100-element array are sent via MPI, an assignment to the 20th element, located elsewhere and safe to use, will be deemed unsafe. 
+Secondly, the Steensgaard algorithm \cite{steensgaard_points-analysis_1996} considers an access to a struct member as an access to the entire struct. 
+These situations may result in overly cautious placement of \texttt{MPI\_Wait} in certain applications. 
+
+At present, Petal lacks the ability to consolidate consecutive \texttt{MPI\_Wait} calls into a single \texttt{MPI\_Waitall} call when they occur within different code blocks, such as separate branches of an if statement. 
+This limitation arises from the fact that the \texttt{MPI\_Isend}/\texttt{MPI\_Irecv} calls associated with each \texttt{MPI\_Wait} may originate from distinct sections of the code. 
+It is desirable to discover an alternative approach, devoid of flags and if-statements, that preserves the code's semantics while enabling the utilization of \texttt{MPI\_Waitall} efficiently.
+
+In a study conducted by Hadia \cite{ahmed_petal_2016}, the investigation focused on the implementation of non-blocking and persistent communications in the open-source framework Open MPI. The researchers discovered that Open MPI optimizes its code by employing persistent requests and utilizing them whenever applicable. 
+As a result, modifying the code of applications to use persistence is unlikely to yield significant performance improvements, as Open MPI already employs similar optimization techniques internally. 
+The observed slowdown could potentially be attributed to the overhead incurred from checking the arguments in each iteration.
+
+The concept of overlapping communication and computation code has captured the attention of numerous researchers due to its potential to significantly enhance performance when effectively implemented.
+In their study, Preissl et al. \cite{preissl_using_2008} propose an approach that also uses and leverages the infrastructure of ROSE to automate the conversion of blocking MPI calls to nonblocking calls. Their method involves a combination of static and dynamic analysis to detect and classify inefficient communication patterns, specifically identifying the Send- and Receive Events involved. But the researchers of this research did not still perform any evaluation of their approach yet.
+
+PLUTO \cite{noauthor_pluto_nodate} is a framework designed for automatically parallelizing and optimizing the locality of affine loop nests. It can be combined with ACDL \cite{frohn_adcl_2023}, an auto-tuning framework for blocking and non-blocking collective operations. In their work, Gabriel and Barigou \cite{barigou_maximizing_2017} were able to transform parallel application software automatically using these frameworks, resulting in a performance improvement ranging from 32\% to 43\% compared to the version that utilized blocking communication operations. 
+Additionally, they achieved a relative overlap ratio (ROR) of up to 95\% of the maximum theoretical communication-computation overlap identified for each scenario.
+
+Bronevetsky et al. \cite{lumsdaine_compiled_2013} propose CoMPI, a compiler-driven tool aimed at enhancing the scalability of legacy MPI applications for Exascale systems. The primary objective of CoMPI is to enable incremental modifications that improve scalability. To achieve this, CoMPI introduces a set of source code annotations that provide insights into the usage of MPI in the applications. By leveraging compile-time and run-time analysis techniques, CoMPI identifies MPI ranks executing on the same node. This enables CoMPI to optimize communication by fusing send and receive operations and eliminating intermediate send and receive buffers. This optimization is achieved by replacing message serialization and deserialization loops with direct memory accesses. CoMPI specifically targets applications that explicitly perform data serialization and deserialization.

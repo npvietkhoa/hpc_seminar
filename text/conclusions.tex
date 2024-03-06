@@ -1,0 +1,12 @@
+\section{Conclusions}
+
+This paper presents and evaluates Petal, a compiler analysis tool designed to convert MPI blocking operations into their corresponding nonblocking versions. 
+Petal's main objective is to identify instances where communication can be overlapped with independent work, thereby harnessing the benefits of nonblocking poin-to-point and collective routines introduced in MPI-3, ultimately enhancing application performance. 
+To achieve this, Petal replaces blocking calls with their non-blocking counterparts and employs pointer and alias analysis to strategically insert \texttt{MPI\_Wait} statements in the appropriate locations. 
+This allows for the overlapping of independent communications and/or computation tasks. 
+
+The utilization of nonblocking collectives in certain cases has been shown to yield benefits for applications. 
+This is particularly evident when dealing with sizable messages and when there is a sufficient amount of work available to overlap with communication tasks. 
+Generally speaking, there were specific scenarios where the overlapping of communication and computation was feasible. 
+These instances of value are expected to be further amplified in the future, especially for applications that have a higher percentage of work dedicated to communication and operate on systems with MPIs that offer robust progress and blocking communication completion (the optimal conditions for overlapping communication and computation).
+Additionally, networks with increased message-passing concurrency will also reap the rewards of code restructuring.

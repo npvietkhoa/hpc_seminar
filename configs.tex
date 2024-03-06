@@ -1,0 +1,37 @@
+%% Ein paar wichtige Details konfigurieren
+%%----------------------------------------
+\title{Automatic Transformation of Blocking into Non-Blocking MPI Communication}
+\author{Khoa Phuc Viet Nguyen}
+\supervisor{Isa Thärigen, M. Sc.}
+\semester{Summer Term 2023}
+\keywords{MPI, Blocking/Non-blocking Operations, Communication-Computation Overlap, Automatic Transformation, Code Generation}
+% \setcounter{tocdepth}{5}
+\setcounter{secnumdepth}{4}
+% \bibliographystyle{ieeetr}
+\definecolor{greenComment}{rgb}{0,0.6,0}
+\lstset{
+        language=c,
+        basicstyle=\ttfamily,
+        columns=fullflexible,
+        frame=single,
+        numbers=left,
+        breaklines=true,
+        keywordstyle=\color{blue},
+        commentstyle=\color{greenComment}\ttfamily,
+        stringstyle=\color{red},
+        rulecolor=\color{black},
+        postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+        emph={int,char,double,float,unsigned,void,bool},
+        morekeywords={sem_t, NULL, pid_t, uint32_t},
+        % xleftmargin=2em,
+        % frame=single,
+        % framexleftmargin=1.5em,
+        literate= %German
+        {Ö}{{\"O}}1
+        {Ä}{{\"A}}1
+        {Ü}{{\"U}}1
+        {ß}{{\ss}}2
+        {ü}{{\"u}}1
+        {ä}{{\"a}}1
+        {ö}{{\"o}}1
+      }

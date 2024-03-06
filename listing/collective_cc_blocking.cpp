@@ -1,0 +1,3 @@
+MPI_Bcast(&foo, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD); 
+MPI_Bcast(&bar, 1, MPI_INT, 0, MPI_COMM_WORLD);
+MPI_Bcast(&foobar, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
