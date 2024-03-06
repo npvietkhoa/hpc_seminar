@@ -144,7 +144,6 @@ Petal determines if there is at least one current communication with a different
 \autoref{collective_blocking} shows the code for solving $A \cdot x = b$ using the conjugate gradient method [source]. \autoref{collective_non-blocking} then illustrates how Petal transformed this code to its non-blocking version.
 After inlining and counting collective calls, Petal creates corresponding arrays \texttt{reqs[2], flags[2]} and \texttt{stats[2]} in order to keep track of states for the calls. 
 
-% Petal detected that, MPI call \texttt{MPI\_Allgather} in line 14 for gathering the new vector \texttt{Blo\_Vector\_X}, which is independent of computing \texttt{Hvector Bloc\_HVector} and its vector dot product with the residue vector. 
 Petal detected that the arguments of \texttt{MPI\_Allgather} in line 14 are independent from the arguments of \texttt{SolvePrecondMatrix}, \texttt{ComputeVectorDotProduct} and the array \texttt{Bloc\_Delta1}. As a result, its \texttt{MPI\_Wait} with corresponding buffer can be placed at the end of the loop.
 This collective call is also separate from collecting \texttt{Delta1} as well.
 So that, its \texttt{MPI\_Wait} with corresponding buffers can be placed at the end of the loop.
