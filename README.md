@@ -1,6 +1,6 @@
 # HPC Seminar Thesis
 
-Using on local machines
+Seminar paper of topic "Automatic Transformation of Blocking into Non-Blocking MPI Communication"
 
 The thesis template consists of the following files:
 - `seminarthesis.tex`: This is the main file of the template. Besides language options, you do not have to change anything here.
