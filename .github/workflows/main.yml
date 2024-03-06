@@ -23,14 +23,14 @@ jobs:
         with:
           name: PDF
           path: seminarthesis.pdf
-  release:
+  release_pdf:
     name: Release PDF
     runs-on: ubuntu-latest
     needs: build_latex
     steps:
     - name: Download artifact
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v3
       with:
         name: PDF
-    - name: Display structure of downloaded files
+    - name: Display structure of downloaded files for testing
       run: ls -R
