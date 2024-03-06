@@ -23,5 +23,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: PDF
-          path: hpc_seminar.pdf
+          path: seminarthesis.pdf
 
